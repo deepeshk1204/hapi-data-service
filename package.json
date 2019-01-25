@@ -1,0 +1,30 @@
+{
+  "name": "hapi-try",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/mocha/bin/mocha -w --recursive",
+    "docs":"./node_modules/.bin/jsdoc  -r controller -d docs"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^6.2.0",
+    "hapi": "^17.8.1",
+    "hapi-pino": "^5.2.0",
+    "hapi-swaggered": "^3.0.3",
+    "hapi-swaggered-ui": "^3.0.2",
+    "inert": "^5.1.2",
+    "joi": "^14.3.1",
+    "mongoose": "^5.4.4",
+    "vision": "^5.4.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "inject-then": "^2.0.9",
+    "jsdoc": "^3.5.5",
+    "mocha": "^5.2.0"
+  }
+}
