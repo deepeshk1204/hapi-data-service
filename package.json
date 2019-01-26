@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js $PORT",
     "test": "node ./node_modules/mocha/bin/mocha -w --recursive",
-    "docs":"./node_modules/.bin/jsdoc  -r controller -d docs"
+    "docs": "./node_modules/.bin/jsdoc  -r controller -d docs"
   },
   "author": "",
   "license": "ISC",
