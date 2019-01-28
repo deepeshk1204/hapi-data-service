@@ -16,7 +16,10 @@ const seedLSMapping = async (request, reply) => {
     const TOKEN = request.headers.token;
     const lsData = await getLearningSpecialistFromPlatform();
     const ls_learner_mapping = await getLearnersViaOrganisationAPI(lsData.learningSpecialists, TOKEN);
-    const statusObj = { success: [],failure: []}
+    const statusObj = {
+        success: [],
+        failure: []
+    }
 
     await util.asyncForEach(ls_learner_mapping, async (lsMapping) => {
         try {
@@ -78,6 +81,17 @@ const getLearnersViaOrganisationAPI = (lsList, TOKEN) => {
  */
 const updateLearnerToLSMapping = (mapdata) => {
     return new Promise((resolve, reject) => {
+
+
+        const learnerList = mapdata.organizationPeople.map((learner) => {
+            const dateObj = {
+                createdAt: new Date(),
+                updatedBy: 'seed'
+            }
+            return Object.assign(learner, dateObj)
+        })
+        console.log(mapdata.organizationPeople.length)
+        console.log(learnerList.length)
         const searchQuery = {
             'learningSpecialistId': mapdata.userId,
             "orgId": mapdata.orgId
@@ -85,10 +99,10 @@ const updateLearnerToLSMapping = (mapdata) => {
         const updateQuery = {
             $set: {
                 "learningSpecialistId": mapdata.userId,
-                "orgId": mapdata.orgId
+                // "orgId": mapdata.orgId
             },
             $addToSet: {
-                learnerList: mapdata.organizationPeople
+                learnerList: learnerList
             },
         };
 

@@ -22,7 +22,20 @@ const getLSTabledata = {
     }
 }
 
+
+const updateLs = {
+    method: 'GET',
+    path: '/update_ls',
+    handler: ls.updateMapping,
+    config: {
+        tags: ['api'],
+        description: 'Says hello!',
+        notes: 'Some important notes when using this',
+    }
+}
+
 module.exports = {
     getAllLS,
+    updateLs,
     getLSTabledata
 };

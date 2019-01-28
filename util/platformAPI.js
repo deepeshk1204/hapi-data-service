@@ -6,7 +6,12 @@ const platform_api = config.PLATFORM_API_URL
 const app_key = config.APP_KEY
 
 const peopleAPI = async (edgeUid) => {
+    const piData = await axios.get(`${platform_api}/v1/people?app_key=${app_key}&edgeUid=${edgeUid}&geId=0`)
+    return piData.data;
+}
 
+const batchPeopleAPI = async (edgeUid) => {
+    // Todo: replace api with  batch API
     const piData = await axios.get(`${platform_api}/v1/people?app_key=${app_key}&edgeUid=${edgeUid}&geId=0`)
     return piData.data;
 }
@@ -19,13 +24,14 @@ const getLearningSpecialistAPI = async () => {
 
 const getAllLearners = async (token) => {
     // /v1/people/list?searchFilter=[{"filter":"productId","filterBy":"22,23"}]&token=33ea5790ffb0da34723f542388ddec57a576558
-    const learnerList = await axios.get(`${platform_api}/v1/people/list?searchFilter=[{"filter":"productId","filterBy":"22,23"}]&token=${token}`)
-    // console.log(learnerList)
+    const learnerList = await axios.get(`${platform_api}/v1/people/list?searchFilter=[{"filter":"productId","filterBy":"22,23"}]&fields=count&token=${token}`)
+    console.log(learnerList.data.totalCount)
     return learnerList.data;
 }
 
 module.exports ={
     peopleAPI,
+    batchPeopleAPI,
     getAllLearners,
     getLearningSpecialistAPI
 }

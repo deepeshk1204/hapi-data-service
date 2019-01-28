@@ -6,7 +6,7 @@ const joi = require('joi');
 const routes = require('./routes')
 
 const server = Hapi.server({
-    port: process.env.PORT || 3000,
+    port: 3000,
     host: 'localhost'
 });
 
@@ -59,7 +59,8 @@ const init = async () => {
     server.log(`Server running at port ${server.info.uri}`);
 };
 
-server.realm.modifiers.route.prefix = '/conceirge'
+server.realm.modifiers.route.prefix = '/concierge'
+// console.log(routes)
 server.route(routes)
 
 process.on('unhandledRejection', (err) => {

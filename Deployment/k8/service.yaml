@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ge-sales-gateway-svc
+  namespace: ge-ecommerce
+  labels:
+    run: ge-sales-gateway-svc
+spec:
+  ports:
+  - port: 80
+    name: http
+    targetPort: 10012
+  - port: 443
+    protocol: TCP
+    name: https
+  type: LoadBalancer
+  selector:
+    run: ge-sales-gateway-svc

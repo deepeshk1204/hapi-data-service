@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js $PORT",
-    "test": "node ./node_modules/mocha/bin/mocha -w --recursive",
+    "test": "node --expose-internals ./node_modules/mocha/bin/mocha --recursive",
     "docs": "./node_modules/.bin/jsdoc  -r controller -d docs"
   },
   "author": "",

@@ -6,7 +6,7 @@ describe('Server Testing', function () {
     it('should validate if server is running', function () {
         return server.inject({
                 method: 'GET',
-                url: '/conceirge/ls'
+                url: '/concierge/ls'
             })
             .then(
                 function (response) {

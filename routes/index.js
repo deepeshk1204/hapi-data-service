@@ -10,4 +10,4 @@ const emptyRoute = {
     }
 };
 
-module.exports = [LS.getAllLS,LS.getLSTabledata,seedData.seedData,AL.getAllLearners,emptyRoute];
+module.exports = [LS.getAllLS,LS.getLSTabledata,LS.updateLs,seedData.seedData,AL.getAllLearners,emptyRoute];

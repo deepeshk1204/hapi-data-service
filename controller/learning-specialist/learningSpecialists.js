@@ -44,6 +44,7 @@ const getLSforDatatable = (request, reply) => {
                 console.log(err);
             }
             let tabledata = [];
+            // todo:  replace with batch peopleAPI call
             await util.asyncForEach(doc,async (lsData) => {
                 const dataObj = lsData._doc
                 const process = fork()
@@ -62,7 +63,39 @@ const getLSforDatatable = (request, reply) => {
     });
 }
 
+
+const updateMapping = (mappingObj) => {
+    return new Promise((resolve, reject) => {
+        mappingObj = {
+            lsid:420177,
+            learner: [{geid:11},{geid:12},{geid:13}]
+        }
+        const searchQuery = {
+            'learningSpecialistId': mappingObj.lsid,
+        };
+        const updateQuery = {
+            $set: {
+                "learningSpecialistId": mappingObj.lsid,
+            },
+            $addToSet: {
+                learnerList: mappingObj.learner
+            },
+        };
+
+        model.learningSpecialist.findOneAndUpdate(searchQuery, updateQuery, {
+            upsert: true
+        }, function (err, doc) {
+            if (err) {
+                reject(err);
+                console.log(err);
+            }
+            resolve('updated documents');
+        });
+    });
+}
+
 module.exports = {
     getallls,
+    updateMapping,
     getLSforDatatable
 }

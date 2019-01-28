@@ -1,0 +1,55 @@
+apiVersion: "extensions/v1beta1"
+kind: Deployment
+metadata:
+  name: ge-concierge-data-svc
+  namespace: ge-test-concierge
+spec:
+  replicas: 3
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        run: ge-concierge-data-svc
+    spec:
+      volumes:
+        - name: cert-secret-volume
+          secret:
+            secretName: gecertificates
+      containers:
+      - name: ge-concierge-data-svc
+        image: gedevops/ecommerce-sales-gateway-svc:v0.0.34
+        envFrom:
+        - configMapRef:
+            name: ge-sales-platform-svc-config
+        env:
+        - name: CRYPT_KEY
+          valueFrom:
+            secretKeyRef:
+              name: crypt-creds
+              key: cryptKey
+        - name: CRYPT_IV
+          valueFrom:
+            secretKeyRef:
+              name: crypt-creds
+              key: cryptIv
+        - name: APP_INSIGHTS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: application-insights-key
+              key: ge-ecommerce-gateway-svc
+        - name: COOKIE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: crypt-creds
+              key: cryptCookieName
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: cert-secret-volume
+          readOnly: false
+          mountPath: "/etc/cert-secret"
+        ports:
+          - containerPort: 10012
+          - containerPort: 443
+      imagePullSecrets:
+      - name: dockersecretops
+
